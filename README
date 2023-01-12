@@ -1,0 +1,10 @@
+# setup instructions
+
+```
+# run once
+echo "\n#aliases\nsource" .aliases >> ~/.zshrc
+chmod +x ./push.sh
+
+# rerun on change
+cp .aliases ~/.aliases && source ~/.zshrc
+```

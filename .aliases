@@ -1,0 +1,7 @@
+alias gs="git status"
+alias gp="git push"
+alias ga="git add ."
+alias gc="git commit"
+alias gac="ga && gc"
+alias gaca="ga && gc --amend"
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
