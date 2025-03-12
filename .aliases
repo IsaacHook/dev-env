@@ -1,7 +1,8 @@
-alias pi="pipenv install"
-alias pu="pipenv uninstall"
-alias pr="pipenv run"
-alias prp="pipenv run python"
+alias pi="pip install"
+alias ppi="pipenv install"
+alias ppu="pipenv uninstall"
+alias ppr="pipenv run"
+alias pprp="pipenv run python"
 alias gs="git status"
 alias grsh="git reset --soft HEAD~"
 alias gcl="git clone"
@@ -12,11 +13,52 @@ alias gfp="git push --force"
 alias ga="git add ."
 alias gc="git commit"
 alias gca="git commit --amend"
+alias gcafp="git commit --amend && git push --force"
+alias gcm="git commit --message"
 alias gac="ga && gc"
 alias gaca="git add . && git commit --amend"
+alias gacafp="git add . && git commit --amend && git push --force"
 alias gch="git checkout"
 alias grbi="git rebase -i"
 alias grba="git rebase --abort"
 alias grbc="git rebase --continue"
+alias gsh="git stash"
+alias gshp="git stash pop"
+alias gsha="git stash apply"
+alias gshm="git stash -m $1"
 alias gl="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all"
+alias gbd="confirm_delete_branches"
+alias dps="docker ps"
+alias dpr="docker system prune"
+alias di="docker images"
+alias dr="docker run"
+alias drir="docker run -it --rm"
+alias dka="docker kill $(docker ps -q)"
+alias kb="kubectl"
+alias mk="minikube"
+alias vn="python3 -m venv .venv && source .venv/bin/activate && pip install --upgrade pip"
+alias vna="source .venv/bin/activate"
+alias vnd="deactivate"
+alias vnk="deactivate && rm -rf .venv"
+alias hg="history | grep"
+alias tf="terraform"
 function gi() { curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@ ;}
+
+function confirm_delete_branches() {
+  git fetch --prune
+  branches=$(git branch -vv | grep ': gone]' | awk '{print $1}')
+  
+  if [ -z "$branches" ]; then
+    echo "No branches to delete"
+  else
+    echo "Branches to delete:"
+    echo "$branches"
+    read -p "Are you sure you want to delete these branches? (y/N) " confirm
+    if [[ $confirm =~ ^[Yy]$ ]]; then
+      echo "$branches" | xargs git branch -D
+    else
+      echo "Operation cancelled"
+    fi
+  fi
+}
+
